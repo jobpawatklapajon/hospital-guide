@@ -8,16 +8,10 @@ import clinicData from '../data/clinics.json';
 const ClinicItem = lazy(() => import('./ClinicItem'));
 const ClinicGuide = lazy(() => import('./ClinicGuide'));
 
-// Utility function for handling relative paths
-const getImageUrl = (url) => {
-    if (url.startsWith('/')) {
-        return `${import.meta.env.BASE_URL.replace(/\/$/, '')}${url}`;
-    }
-    return url;
-};
-
 // LazyImage component for optimized image loading
 export const LazyImage = ({ src, alt, className }) => {
+    const [isLoaded, setIsLoaded] = useState(false);
+    
     return (
         <div className={`${className} relative`}>
             {!isLoaded && (
@@ -30,6 +24,7 @@ export const LazyImage = ({ src, alt, className }) => {
                 alt={alt}
                 className={`${className} ${!isLoaded ? 'opacity-0 scale-95' : 'opacity-100 scale-100'} transition-all duration-300 ease-in-out`}
                 loading="lazy"
+                onLoad={() => setIsLoaded(true)}
             />
         </div>
     );
