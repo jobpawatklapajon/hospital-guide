@@ -11,20 +11,59 @@ const ClinicGuide = lazy(() => import('./ClinicGuide'));
 // LazyImage component for optimized image loading
 export const LazyImage = ({ src, alt, className }) => {
     const [isLoaded, setIsLoaded] = useState(false);
+    const [hasError, setHasError] = useState(false);
+    
+    // Optimize image loading by implementing IntersectionObserver
+    const imgRef = useCallback(node => {
+        if (node !== null) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Using native lazyloading + our own implementation
+                        entry.target.src = `${import.meta.env.BASE_URL.replace(/\/$/, '')}${src}`;
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { 
+                rootMargin: '100px', 
+                threshold: 0.1 
+            });
+            
+            observer.observe(node);
+            
+            return () => {
+                observer.disconnect();
+            };
+        }
+    }, [src]);
     
     return (
         <div className={`${className} relative`}>
-            {!isLoaded && (
+            {!isLoaded && !hasError && (
                 <div className="absolute inset-0 bg-gray-200 flex items-center justify-center animate-pulse">
                     <div className="w-8 h-8 border-2 border-[#0077B6] border-t-transparent rounded-full animate-spin"></div>
                 </div>
             )}
+            
+            {hasError && (
+                <div className="absolute inset-0 bg-gray-100 flex flex-col items-center justify-center">
+                    <FaExclamationTriangle className="text-gray-400 mb-2" size={24} />
+                    <p className="text-xs text-gray-500">ไม่สามารถโหลดรูปได้</p>
+                </div>
+            )}
+            
             <img
-                src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}${src}`}
+                ref={imgRef}
                 alt={alt}
                 className={`${className} ${!isLoaded ? 'opacity-0 scale-95' : 'opacity-100 scale-100'} transition-all duration-300 ease-in-out`}
                 loading="lazy"
                 onLoad={() => setIsLoaded(true)}
+                onError={() => {
+                    setHasError(true);
+                    setIsLoaded(true);
+                }}
+                // Initial empty source - actual src will be set by IntersectionObserver
+                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
             />
         </div>
     );
