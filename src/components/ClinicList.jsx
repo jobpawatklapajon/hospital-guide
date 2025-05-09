@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense, useMemo, useCallback } from "react";
+import { useState, useEffect, lazy, Suspense, useMemo, useCallback, useRef } from "react";
 import { FaHospital, FaArrowLeft, FaExclamationTriangle } from "react-icons/fa";
 import { HiOutlineMap } from "react-icons/hi";
 import PropTypes from 'prop-types';
@@ -97,10 +97,21 @@ BackButton.propTypes = {
     text: PropTypes.string.isRequired
 };
 
+// Loading indicator for infinite scroll
+const LoadingIndicator = () => (
+    <div className="flex justify-center items-center py-4">
+        <div className="w-8 h-8 border-2 border-[#7ac142] border-t-transparent rounded-full animate-spin"></div>
+    </div>
+);
+
 // Main component
 export default function ClinicList({ selectedBuild, handleSelectedBuild, selectedClinic, setSelectedClinic }) {
     const [clinics] = useState(clinicData.clinics);
-
+    const [visibleItems, setVisibleItems] = useState(5);
+    const [isLoading, setIsLoading] = useState(false);
+    const containerRef = useRef(null);
+    const loaderRef = useRef(null);
+    
     const handleClinicSelect = useCallback((clinic) => {
         setSelectedClinic(clinic);
     }, [setSelectedClinic]);
@@ -108,15 +119,66 @@ export default function ClinicList({ selectedBuild, handleSelectedBuild, selecte
     const handleBackToBuildings = useCallback(() => {
         handleSelectedBuild(null);
         setSelectedClinic(null);
+        setVisibleItems(5); // Reset visible items when going back
     }, [handleSelectedBuild, setSelectedClinic]);
 
     const handleBackToClinicList = useCallback(() => {
         setSelectedClinic(null);
     }, [setSelectedClinic]);
 
+    // Setup infinite scroll observer
+    useEffect(() => {
+        // Skip if already selected a clinic
+        if (selectedClinic) return;
+        
+        const loadMoreItems = () => {
+            setIsLoading(true);
+            setTimeout(() => {
+                setVisibleItems(prev => prev + 5);
+                setIsLoading(false);
+            }, 500); // Small delay to show loading effect
+        };
+
+        const handleObserver = (entries) => {
+            const target = entries[0];
+            if (target.isIntersecting && !isLoading) {
+                const filteredClinics = selectedBuild 
+                    ? clinics.filter(clinic => clinic.build === selectedBuild)
+                    : clinics;
+                
+                // Only load more if there are more items to show
+                if (filteredClinics.length > visibleItems) {
+                    loadMoreItems();
+                }
+            }
+        };
+
+        const observer = new IntersectionObserver(handleObserver, {
+            root: null,
+            rootMargin: '20px',
+            threshold: 0.1
+        });
+
+        if (loaderRef.current) {
+            observer.observe(loaderRef.current);
+        }
+
+        return () => {
+            if (loaderRef.current) {
+                observer.unobserve(loaderRef.current);
+            }
+        };
+    }, [clinics, selectedBuild, visibleItems, isLoading, selectedClinic]);
+
+    // Reset visible items when changing between all clinics and building-specific views
+    useEffect(() => {
+        setVisibleItems(5);
+    }, [selectedBuild]);
+
     // Memoize clinic lists to prevent unnecessary re-renders
-    const allClinics = useMemo(() => 
-        clinics.map((clinic, index) => (
+    const allClinics = useMemo(() => {
+        const clinicsToRender = clinics.slice(0, visibleItems);
+        return clinicsToRender.map((clinic, index) => (
             <div key={index}>
                 <Suspense fallback={<LoadingFallback />}>
                     <ClinicItem 
@@ -125,22 +187,29 @@ export default function ClinicList({ selectedBuild, handleSelectedBuild, selecte
                     />
                 </Suspense>
             </div>
-        )), [clinics, handleClinicSelect]);
+        ));
+    }, [clinics, handleClinicSelect, visibleItems]);
 
-    const clinicsInBuild = useMemo(() => 
-        clinics
-            .filter(clinic => clinic.build === selectedBuild)
-            .map((clinic, index) => (
-                <Suspense 
-                    key={index} 
-                    fallback={<LoadingFallback />}
-                >
-                    <ClinicItem 
-                        clinic={clinic} 
-                        handleClinicSelect={handleClinicSelect} 
-                    />
-                </Suspense>
-            )), [clinics, selectedBuild, handleClinicSelect]);
+    const clinicsInBuild = useMemo(() => {
+        const filteredClinics = clinics.filter(clinic => clinic.build === selectedBuild);
+        const clinicsToRender = filteredClinics.slice(0, visibleItems);
+        return clinicsToRender.map((clinic, index) => (
+            <Suspense 
+                key={index} 
+                fallback={<LoadingFallback />}
+            >
+                <ClinicItem 
+                    clinic={clinic} 
+                    handleClinicSelect={handleClinicSelect} 
+                />
+            </Suspense>
+        ));
+    }, [clinics, selectedBuild, handleClinicSelect, visibleItems]);
+
+    // Check if there are more items to load
+    const hasMoreAllClinics = clinics.length > visibleItems;
+    const hasMoreBuildingClinics = clinics.filter(clinic => clinic.build === selectedBuild).length > visibleItems;
+    const shouldShowLoader = selectedBuild === null ? hasMoreAllClinics : hasMoreBuildingClinics;
 
     // If a clinic is selected, show the image navigation guide
     if (selectedClinic) {
@@ -161,7 +230,10 @@ export default function ClinicList({ selectedBuild, handleSelectedBuild, selecte
 
     // Render appropriate view based on selection state
     return (
-        <div className="h-full w-full overflow-y-auto px-4 pt-5 pb-20">
+        <div 
+            ref={containerRef} 
+            className="h-full w-full overflow-y-auto px-4 pt-5 pb-20"
+        >
             {selectedBuild == null ? (
                 // All clinics view
                 <>
@@ -169,9 +241,14 @@ export default function ClinicList({ selectedBuild, handleSelectedBuild, selecte
                         <HiOutlineMap size={24} className="text-[#7ac142] mr-2" />
                         <h2 className="text-xl font-bold text-gray-800">คลินิกทั้งหมด</h2>
                     </div>
-                    <div className="grid grid-cols-4 gap-4 p-2">
+                    <div className="grid grid-cols-3 gap-4 p-2">
                         {allClinics}
                     </div>
+                    {shouldShowLoader && (
+                        <div ref={loaderRef}>
+                            <LoadingIndicator />
+                        </div>
+                    )}
                 </>
             ) : (
                 // Building-specific clinics view
@@ -183,9 +260,15 @@ export default function ClinicList({ selectedBuild, handleSelectedBuild, selecte
                         </h1>
                     </div>
                     
-                    <div className="grid grid-cols-4 gap-4 p-2">
+                    <div className="grid grid-cols-3 gap-4 p-2">
                         {clinicsInBuild}
                     </div>
+                    
+                    {shouldShowLoader && (
+                        <div ref={loaderRef}>
+                            <LoadingIndicator />
+                        </div>
+                    )}
                     
                     <div className="fixed bottom-0 left-0 right-0 p-4 flex justify-center shadow-md border-t border-[#7ac142]/20 mx-4 mb-2 rounded-t-xl bg-white/70 backdrop-blur-md">
                         <BackButton 
