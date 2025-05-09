@@ -1,22 +1,35 @@
 import MapView from './components/Mapview.jsx';
 import ClinicList from './components/ClinicList.jsx';
-import { useState, useCallback, useEffect, Suspense, lazy } from 'react';
+import { useState, useCallback, useEffect, Suspense } from 'react';
 
 function App() {
   // State management
   const [selectedBuild, setSelectedBuild] = useState(null);
   const [selectedClinic, setSelectedClinic] = useState(null);
-  const [mapExpanded, setMapExpanded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load app content
+  // Component styles
+  const mapContainerClass = `
+    h-2/5
+    shadow-md 
+    rounded-b-xl 
+    overflow-hidden
+    touch-none
+  `;
+  
+  const clinicListContainerClass = `
+    bg-white 
+    h-3/5
+    overflow-y-auto
+    rounded-t-xl
+    shadow-inner
+    border-t
+    border-gray-200
+  `;
+
+  // Initialize app
   useEffect(() => {
-    // Simulate a short loading delay to prevent flickering
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 100);
-    
-    return () => clearTimeout(timer);
+    setIsLoading(false);
   }, []);
 
   // Event handlers
@@ -26,49 +39,13 @@ function App() {
       event.stopPropagation();
     }
     setSelectedBuild(build);
-    setMapExpanded(false);
   }, []);
 
-  const handleMapTouch = useCallback((event) => {
+  const handleInteraction = useCallback((event) => {
     if (event) {
       event.preventDefault();
     }
-    setMapExpanded(false);
   }, []);
-
-  const handleClinicTouch = useCallback((event) => {
-    if (event) {
-      event.preventDefault();
-    }
-    if (!selectedClinic) {
-      setMapExpanded(false);
-    }
-  }, [selectedClinic]);
-
-  // Component styles
-  const mapContainerClass = `
-    transition-all 
-    duration-300 
-    ease-in-out 
-    ${selectedClinic ? 'h-0' : mapExpanded ? 'h-2/5' : 'h-2/5'} 
-    shadow-md 
-    rounded-b-xl 
-    overflow-hidden
-    touch-none
-  `;
-  
-  const clinicListContainerClass = `
-    bg-white 
-    transition-all 
-    duration-300 
-    ease-in-out 
-    ${selectedClinic ? 'h-full flex-1' : mapExpanded ? 'h-3/5' : 'h-3/5'} 
-    overflow-y-auto
-    rounded-t-xl
-    shadow-inner
-    border-t
-    border-gray-200
-  `;
 
   // Loading screen
   if (isLoading) {
@@ -80,28 +57,26 @@ function App() {
   }
 
   return (
-    <div className='flex flex-col h-screen w-screen bg-gray-50 transition-all duration-300 overflow-hidden'>
+    <div className='flex flex-col h-screen w-screen bg-gray-50 overflow-hidden'>
       {/* Map Section */}
       <div 
         className={mapContainerClass}
-        onClick={handleMapTouch}
-        onTouchStart={handleMapTouch}
+        onClick={handleInteraction}
+        onTouchStart={handleInteraction}
       >
-        {!selectedClinic && (
-          <div className='flex items-center justify-center h-full'>
-            <MapView 
-              setSelectedBuild={handleSelectedBuild} 
-              build={selectedBuild} 
-            />
-          </div>
-        )}
+        <div className='flex items-center justify-center h-full'>
+          <MapView 
+            setSelectedBuild={handleSelectedBuild} 
+            build={selectedBuild} 
+          />
+        </div>
       </div>
       
       {/* Clinic List Section */}
       <div 
         className={clinicListContainerClass}
-        onClick={handleClinicTouch}
-        onTouchStart={handleClinicTouch}
+        onClick={handleInteraction}
+        onTouchStart={handleInteraction}
       >
         <div className="px-2 py-1 bg-green-200 rounded-full w-20 mx-auto mt-2 mb-2">
           <div className="h-1.5 bg-green-500 rounded-full"></div>
