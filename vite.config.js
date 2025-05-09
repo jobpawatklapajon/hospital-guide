@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/hospital-map/",
+  base: "/hospital-guide/",
   plugins: [react(), tailwindcss()],
   build: {
     assetsInlineLimit: 0,
