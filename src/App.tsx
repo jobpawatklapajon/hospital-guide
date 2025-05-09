@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import Map from './components/Map'
 import { buildings } from './components/Map'
@@ -6,6 +6,49 @@ import clinicsData from './data/clinics.json'
 
 // Base path for images
 const IMAGE_BASE_PATH = '/hospital-guide/';
+
+// Lazy Image component
+function LazyImage({ src, alt, className, placeholderClass }: { src: string, alt: string, className: string, placeholderClass?: string }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const imgRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        setIsVisible(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.1 });
+
+    if (imgRef.current) {
+      observer.observe(imgRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <div ref={imgRef} className={className}>
+      {isVisible ? (
+        <>
+          {!isLoaded && <div className={`${placeholderClass || ''} animate-pulse bg-gray-200 rounded-full w-full h-full`}></div>}
+          <img 
+            src={src} 
+            alt={alt} 
+            className={`w-full h-full object-contain transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`} 
+            onLoad={() => setIsLoaded(true)}
+            style={{ display: isLoaded ? 'block' : 'none' }}
+          />
+        </>
+      ) : (
+        <div className={`${placeholderClass || ''} animate-pulse bg-gray-200 rounded-full w-full h-full`}></div>
+      )}
+    </div>
+  );
+}
 
 function App() {
   const [selectedBuilding, setSelectedBuilding] = useState<string>('');
@@ -105,7 +148,7 @@ function App() {
                   {selectedClinic.navigation_guide.map((guide: any, index: number) => (
                     <div key={index} className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
                       <div className="relative">
-                        <img 
+                        <LazyImage 
                           src={getImagePath(guide.path)} 
                           alt={`Step ${index + 1}`} 
                           className="w-full h-auto" 
@@ -147,7 +190,7 @@ function App() {
                 >
                   <div className="p-3 flex flex-col items-center">
                     <div className="w-16 h-16 md:w-20 md:h-20 bg-blue-50 rounded-full p-2 flex items-center justify-center mb-2">
-                      <img 
+                      <LazyImage 
                         src={getImagePath(clinic.icon)} 
                         alt={clinic.name} 
                         className="w-10 h-10 md:w-14 md:h-14 object-contain" 
