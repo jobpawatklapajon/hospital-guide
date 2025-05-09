@@ -46,8 +46,10 @@ export default function ClinicGuide({
   const totalSteps = selectedClinic.navigation_guide.length;
   const [visibleSteps, setVisibleSteps] = useState(2);
   const [isLoading, setIsLoading] = useState(false);
+  const [showControls, setShowControls] = useState(true);
   const containerRef = useRef(null);
   const loaderRef = useRef(null);
+  const lastScrollY = useRef(0);
 
   const handleStepClick = useCallback((index) => {
     setCurrentStep(index);
@@ -64,6 +66,37 @@ export default function ClinicGuide({
       setCurrentStep(prev => prev - 1);
     }
   }, [currentStep]);
+
+  // Handle scroll to show/hide controls
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!containerRef.current) return;
+      
+      const currentScrollY = containerRef.current.scrollTop;
+      
+      // Scrolling down - hide controls
+      if (currentScrollY > lastScrollY.current && showControls) {
+        setShowControls(false);
+      } 
+      // Scrolling up - show controls
+      else if (currentScrollY < lastScrollY.current && !showControls) {
+        setShowControls(true);
+      }
+      
+      lastScrollY.current = currentScrollY;
+    };
+    
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener('scroll', handleScroll, { passive: true });
+    }
+    
+    return () => {
+      if (container) {
+        container.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [showControls]);
 
   // Setup infinite scroll observer - similar to ClinicList
   useEffect(() => {
@@ -142,8 +175,12 @@ export default function ClinicGuide({
           )}
         </div>
 
-        {/* Control Panel - Always visible */}
-        <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-md shadow-md border-t border-[#7ac142]/20 mx-4 mb-2 rounded-t-xl">
+        {/* Control Panel - Shows/hides based on scroll direction */}
+        <div 
+          className={`fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-md shadow-md border-t border-[#7ac142]/20 mx-4 mb-2 rounded-t-xl transition-transform duration-300 ${
+            showControls ? 'translate-y-0' : 'translate-y-full'
+          }`}
+        >
           {/* Back buttons */}
           <div className="flex justify-center gap-x-2">
             <button
