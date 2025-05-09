@@ -130,13 +130,17 @@ export default function ClinicList({ selectedBuild, handleSelectedBuild, selecte
     }, [setSelectedClinic]);
 
     const handleBackToBuildings = useCallback(() => {
-        handleSelectedBuild(null);
-        setSelectedClinic(null);
-        setVisibleItems(5); // Reset visible items when going back
+        setTimeout(() => {
+            handleSelectedBuild(null);
+            setSelectedClinic(null);
+            setVisibleItems(5); // Reset visible items when going back
+        }, 0);
     }, [handleSelectedBuild, setSelectedClinic]);
 
     const handleBackToClinicList = useCallback(() => {
-        setSelectedClinic(null);
+        setTimeout(() => {
+            setSelectedClinic(null);
+        }, 0);
     }, [setSelectedClinic]);
 
     // Setup infinite scroll observer
