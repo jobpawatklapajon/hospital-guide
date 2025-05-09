@@ -4,6 +4,9 @@ import Map from './components/Map'
 import { buildings } from './components/Map'
 import clinicsData from './data/clinics.json'
 
+// Base path for images
+const IMAGE_BASE_PATH = '/hospital-guide/';
+
 function App() {
   const [selectedBuilding, setSelectedBuilding] = useState<string>('');
   const [selectedClinic, setSelectedClinic] = useState<any>(null);
@@ -33,8 +36,18 @@ function App() {
     setSelectedClinic(clinic);
   };
 
+  // Helper function to get full image path
+  const getImagePath = (relativePath: string) => {
+    // If the path already includes http or https, assume it's an external URL
+    if (relativePath.startsWith('http://') || relativePath.startsWith('https://')) {
+      return relativePath;
+    }
+    // Otherwise, prepend the base path
+    return `${IMAGE_BASE_PATH}${relativePath.startsWith('/') ? '' : '/'}${relativePath}`;
+  };
+
   return (
-    <div className="flex flex-col h-screen overflow-hidden bg-gray-50">
+    <div className="flex flex-col h-screen w-screen overflow-hidden bg-gray-50">
 
       {/* Fixed map section */}
       <div className="sticky top-0 z-10 bg-white shadow-md">
@@ -42,6 +55,7 @@ function App() {
           <Map 
             selectedBuilding={selectedBuilding} 
             onBuildingSelect={handleBuildingSelect} 
+            imageBasePath={IMAGE_BASE_PATH}
           />
         </div>
       </div>
@@ -92,7 +106,7 @@ function App() {
                     <div key={index} className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
                       <div className="relative">
                         <img 
-                          src={guide.path} 
+                          src={getImagePath(guide.path)} 
                           alt={`Step ${index + 1}`} 
                           className="w-full h-auto" 
                         />
@@ -134,7 +148,7 @@ function App() {
                   <div className="p-3 flex flex-col items-center">
                     <div className="w-16 h-16 md:w-20 md:h-20 bg-blue-50 rounded-full p-2 flex items-center justify-center mb-2">
                       <img 
-                        src={clinic.icon} 
+                        src={getImagePath(clinic.icon)} 
                         alt={clinic.name} 
                         className="w-10 h-10 md:w-14 md:h-14 object-contain" 
                       />

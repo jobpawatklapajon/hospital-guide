@@ -25,18 +25,19 @@ export const overlay_building: Record<BuildingClassName, string> = {
 interface MapProps {
   selectedBuilding: string;
   onBuildingSelect?: (buildingClass: string) => void;
+  imageBasePath?: string;
 }
 
-export default function Map({ selectedBuilding, onBuildingSelect }: MapProps) {
+export default function Map({ selectedBuilding, onBuildingSelect, imageBasePath = '/maps/' }: MapProps) {
   // Get building number from selected building class
   const getMapImagePath = () => {
-    if (!selectedBuilding) return "/maps/TopView-(all).webp";
+    if (!selectedBuilding) return `${imageBasePath}/maps/TopView-(all).webp`;
     
     // Find the building with the matching className
     const building = buildings.find(b => b.className === selectedBuilding);
-    if (!building) return "/maps/TopView-(all).webp";
+    if (!building) return `${imageBasePath}/maps/TopView-(all).webp`;
     
-    return `/maps/TopView-${building.number}.webp`;
+    return `${imageBasePath}/maps/TopView-${building.number}.webp`;
   };
 
   const handleBuildingClick = (buildingClass: string) => {
