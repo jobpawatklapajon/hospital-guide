@@ -2,12 +2,22 @@ import MapView from './components/Mapview.jsx';
 import ClinicList from './components/ClinicList.jsx';
 import { useState, useCallback, useEffect, Suspense, lazy } from 'react';
 
-
 function App() {
   // State management
   const [selectedBuild, setSelectedBuild] = useState(null);
   const [selectedClinic, setSelectedClinic] = useState(null);
   const [mapExpanded, setMapExpanded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Load app content
+  useEffect(() => {
+    // Simulate a short loading delay to prevent flickering
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   // Event handlers
   const handleSelectedBuild = useCallback((build, event) => {
@@ -59,6 +69,15 @@ function App() {
     border-t
     border-gray-200
   `;
+
+  // Loading screen
+  if (isLoading) {
+    return (
+      <div className="flex flex-col h-screen w-screen bg-white items-center justify-center">
+        <div className="w-16 h-16 border-4 border-[#7ac142] border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
     <div className='flex flex-col h-screen w-screen bg-gray-50 transition-all duration-300 overflow-hidden'>

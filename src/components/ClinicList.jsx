@@ -4,9 +4,22 @@ import { HiOutlineMap } from "react-icons/hi";
 import PropTypes from 'prop-types';
 import clinicData from '../data/clinics.json';
 
-// Lazy load components
-const ClinicItem = lazy(() => import('./ClinicItem'));
-const ClinicGuide = lazy(() => import('./ClinicGuide'));
+// Lazy load components with explicit preloading hints
+const ClinicItem = lazy(() => {
+    // Add a small delay to ensure smooth transitions
+    return Promise.all([
+        import('./ClinicItem'),
+        new Promise(resolve => setTimeout(resolve, 50))
+    ]).then(([moduleExports]) => moduleExports);
+});
+
+const ClinicGuide = lazy(() => {
+    // Add a small delay to ensure smooth transitions
+    return Promise.all([
+        import('./ClinicGuide'),
+        new Promise(resolve => setTimeout(resolve, 50))
+    ]).then(([moduleExports]) => moduleExports);
+});
 
 // LazyImage component for optimized image loading
 export const LazyImage = ({ src, alt, className }) => {

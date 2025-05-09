@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { buildings, buildingStyles } from '../data/buildings';
 
 // Constants
@@ -20,17 +20,37 @@ const getBaseUrl = () => {
     return base.endsWith('/') ? base : `${base}/`;
 };
 
+// Preload all map images to prevent flickering
+const preloadMapImages = () => {
+    Object.values(MAP_IMAGES).forEach(image => {
+        const img = new Image();
+        img.src = `${getBaseUrl()}maps/${image}`;
+    });
+};
+
 // Main MapView component
 const MapView = ({ setSelectedBuild, build }) => {
     const [imgUrl, setImgUrl] = useState(`${getBaseUrl()}maps/${MAP_IMAGES.default}`);
     const [selectedStyle, setSelectedStyle] = useState(null);
     const [imgError, setImgError] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const imgRef = useRef(null);
+
+    // Preload all map images on component mount
+    useEffect(() => {
+        preloadMapImages();
+    }, []);
 
     useEffect(() => {
         const mapImage = MAP_IMAGES[build] || MAP_IMAGES.default;
         const newImageUrl = `${getBaseUrl()}maps/${mapImage}`;
-        setImgUrl(newImageUrl);
-        setImgError(false);
+        
+        // Only change the URL if it's different
+        if (newImageUrl !== imgUrl) {
+            setIsLoaded(false);
+            setImgUrl(newImageUrl);
+            setImgError(false);
+        }
 
         // Find the building style for the selected building
         const building = buildings.find(b => b.name === build);
@@ -39,7 +59,7 @@ const MapView = ({ setSelectedBuild, build }) => {
         } else {
             setSelectedStyle(null);
         }
-    }, [build]);
+    }, [build, imgUrl]);
 
     const handleClick = useCallback((name, event) => {
         if (event) {
@@ -56,24 +76,37 @@ const MapView = ({ setSelectedBuild, build }) => {
 
     const handleImageError = () => {
         setImgError(true);
+        setIsLoaded(true);
         console.error(`Failed to load image: ${imgUrl}`);
+    };
+
+    const handleImageLoad = () => {
+        setIsLoaded(true);
     };
 
     return (
         <div className="relative overflow-hidden rounded-xl shadow-xl bg-white flex items-center justify-center">
             <div className="relative w-full h-full">
+                {!isLoaded && !imgError && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-white z-10">
+                        <div className="w-10 h-10 border-2 border-[#7ac142] border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                )}
+
                 {imgError ? (
                     <div className="w-full h-full flex items-center justify-center bg-gray-200 text-gray-600">
                         Map image could not be loaded
                     </div>
                 ) : (
                     <img
+                        ref={imgRef}
                         src={imgUrl}
                         alt="แผนที่โรงพยาบาล"
-                        className="rounded-xl z-0 select-none w-full h-full object-contain"
+                        className={`rounded-xl z-0 select-none w-full h-full object-contain transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
                         loading="eager"
                         decoding="async"
                         onError={handleImageError}
+                        onLoad={handleImageLoad}
                     />
                 )}
                 {buildings.map((building) => (
