@@ -20,14 +20,6 @@ const getBaseUrl = () => {
     return base.endsWith('/') ? base : `${base}/`;
 };
 
-// Preload all map images to prevent flickering
-const preloadMapImages = () => {
-    Object.values(MAP_IMAGES).forEach(image => {
-        const img = new Image();
-        img.src = `${getBaseUrl()}maps/${image}`;
-    });
-};
-
 // Main MapView component
 const MapView = ({ setSelectedBuild, build }) => {
     const [imgUrl, setImgUrl] = useState(`${getBaseUrl()}maps/${MAP_IMAGES.default}`);
@@ -35,11 +27,6 @@ const MapView = ({ setSelectedBuild, build }) => {
     const [imgError, setImgError] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
     const imgRef = useRef(null);
-
-    // Preload all map images on component mount
-    useEffect(() => {
-        preloadMapImages();
-    }, []);
 
     useEffect(() => {
         const mapImage = MAP_IMAGES[build] || MAP_IMAGES.default;
@@ -103,7 +90,7 @@ const MapView = ({ setSelectedBuild, build }) => {
                         src={imgUrl}
                         alt="แผนที่โรงพยาบาล"
                         className={`rounded-xl z-0 select-none w-full h-full object-contain transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-                        loading="eager"
+                        loading="lazy"
                         decoding="async"
                         onError={handleImageError}
                         onLoad={handleImageLoad}

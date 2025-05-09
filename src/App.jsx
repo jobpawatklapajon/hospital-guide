@@ -1,12 +1,15 @@
 import MapView from './components/Mapview.jsx';
-import ClinicList from './components/ClinicList.jsx';
-import { useState, useCallback, useEffect, Suspense } from 'react';
+import { useState, useCallback, useEffect, lazy, Suspense } from 'react';
+
+// Lazy load ClinicList component
+const ClinicList = lazy(() => import('./components/ClinicList.jsx'));
 
 function App() {
   // State management
   const [selectedBuild, setSelectedBuild] = useState(null);
   const [selectedClinic, setSelectedClinic] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [mapVisible, setMapVisible] = useState(true);
 
   // Component styles
   const mapContainerClass = `
@@ -15,11 +18,12 @@ function App() {
     rounded-b-xl 
     overflow-hidden
     touch-none
+    ${mapVisible ? '' : 'hidden'}
   `;
   
   const clinicListContainerClass = `
     bg-white 
-    h-3/5
+    ${mapVisible ? 'h-3/5' : 'h-full'}
     overflow-y-auto
     rounded-t-xl
     shadow-inner
@@ -27,9 +31,12 @@ function App() {
     border-gray-200
   `;
 
-  // Initialize app
+  // Initialize app with a short timeout to ensure smooth initial rendering
   useEffect(() => {
-    setIsLoading(false);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+    return () => clearTimeout(timer);
   }, []);
 
   // Event handlers
@@ -47,11 +54,16 @@ function App() {
     }
   }, []);
 
-  // Loading screen
+  // Toggle map visibility (hiding map can improve performance on mobile)
+  const toggleMapVisibility = useCallback(() => {
+    setMapVisible(prev => !prev);
+  }, []);
+
+  // Simple loading screen
   if (isLoading) {
     return (
       <div className="flex flex-col h-screen w-screen bg-white items-center justify-center">
-        <div className="w-16 h-16 border-4 border-[#7ac142] border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-12 h-12 border-3 border-[#7ac142] border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -78,7 +90,10 @@ function App() {
         onClick={handleInteraction}
         onTouchStart={handleInteraction}
       >
-        <div className="px-2 py-1 bg-green-200 rounded-full w-20 mx-auto mt-2 mb-2">
+        <div 
+          className="px-2 py-1 bg-green-200 rounded-full w-20 mx-auto mt-2 mb-2"
+          onClick={toggleMapVisibility}
+        >
           <div className="h-1.5 bg-green-500 rounded-full"></div>
         </div>
         <Suspense fallback={

@@ -37,6 +37,7 @@ const NavigationStep = ({ step, index, onClick }) => (
         src={`${getBaseUrl()}${step.path.substring(1)}`}
         alt={`Navigation step ${index + 1}`}
         className="max-w-full h-auto"
+        loading="lazy"
       />
     </div>
   </div>
@@ -49,7 +50,7 @@ export default function ClinicGuide({
 }) {
   const [currentStep, setCurrentStep] = useState(0);
   const totalSteps = selectedClinic.navigation_guide.length;
-  const [visibleSteps, setVisibleSteps] = useState(2);
+  const [visibleSteps, setVisibleSteps] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const containerRef = useRef(null);
@@ -103,14 +104,14 @@ export default function ClinicGuide({
     };
   }, [showControls]);
 
-  // Setup infinite scroll observer - similar to ClinicList
+  // Setup infinite scroll observer
   useEffect(() => {
     const loadMoreSteps = () => {
       setIsLoading(true);
       setTimeout(() => {
-        setVisibleSteps(prev => Math.min(prev + 2, totalSteps));
+        setVisibleSteps(prev => Math.min(prev + 1, totalSteps));
         setIsLoading(false);
-      }, 500); // Small delay to show loading effect
+      }, 300);
     };
 
     const handleObserver = (entries) => {
@@ -140,7 +141,7 @@ export default function ClinicGuide({
     };
   }, [visibleSteps, totalSteps, isLoading]);
 
-  // Memoize navigation steps to prevent unnecessary re-renders (like ClinicList)
+  // Memoize navigation steps to prevent unnecessary re-renders
   const visibleNavSteps = useMemo(() => {
     const stepsToRender = selectedClinic.navigation_guide.slice(0, visibleSteps);
     return stepsToRender.map((step, index) => (
@@ -153,7 +154,7 @@ export default function ClinicGuide({
     ));
   }, [selectedClinic.navigation_guide, visibleSteps, handleStepClick]);
 
-  // Check if there are more steps to load (like ClinicList's shouldShowLoader)
+  // Check if there are more steps to load
   const shouldShowLoader = visibleSteps < totalSteps;
 
   return (

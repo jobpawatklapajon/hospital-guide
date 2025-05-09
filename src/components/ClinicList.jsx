@@ -4,22 +4,9 @@ import { HiOutlineMap } from "react-icons/hi";
 import PropTypes from 'prop-types';
 import clinicData from '../data/clinics.json';
 
-// Lazy load components with explicit preloading hints
-const ClinicItem = lazy(() => {
-    // Add a small delay to ensure smooth transitions
-    return Promise.all([
-        import('./ClinicItem'),
-        new Promise(resolve => setTimeout(resolve, 50))
-    ]).then(([moduleExports]) => moduleExports);
-});
-
-const ClinicGuide = lazy(() => {
-    // Add a small delay to ensure smooth transitions
-    return Promise.all([
-        import('./ClinicGuide'),
-        new Promise(resolve => setTimeout(resolve, 50))
-    ]).then(([moduleExports]) => moduleExports);
-});
+// Lazy load components without artificial delays
+const ClinicItem = lazy(() => import('./ClinicItem'));
+const ClinicGuide = lazy(() => import('./ClinicGuide'));
 
 // Loading fallback component
 const LoadingFallback = () => (
@@ -53,7 +40,7 @@ const LoadingIndicator = () => (
 // Main component
 export default function ClinicList({ selectedBuild, handleSelectedBuild, selectedClinic, setSelectedClinic }) {
     const [clinics] = useState(clinicData.clinics);
-    const [visibleItems, setVisibleItems] = useState(5);
+    const [visibleItems, setVisibleItems] = useState(3);
     const [isLoading, setIsLoading] = useState(false);
     const containerRef = useRef(null);
     const loaderRef = useRef(null);
@@ -63,17 +50,13 @@ export default function ClinicList({ selectedBuild, handleSelectedBuild, selecte
     }, [setSelectedClinic]);
 
     const handleBackToBuildings = useCallback(() => {
-        setTimeout(() => {
-            handleSelectedBuild(null);
-            setSelectedClinic(null);
-            setVisibleItems(5); // Reset visible items when going back
-        }, 0);
+        handleSelectedBuild(null);
+        setSelectedClinic(null);
+        setVisibleItems(3); // Reset visible items when going back
     }, [handleSelectedBuild, setSelectedClinic]);
 
     const handleBackToClinicList = useCallback(() => {
-        setTimeout(() => {
-            setSelectedClinic(null);
-        }, 0);
+        setSelectedClinic(null);
     }, [setSelectedClinic]);
 
     // Setup infinite scroll observer
@@ -84,9 +67,9 @@ export default function ClinicList({ selectedBuild, handleSelectedBuild, selecte
         const loadMoreItems = () => {
             setIsLoading(true);
             setTimeout(() => {
-                setVisibleItems(prev => prev + 5);
+                setVisibleItems(prev => prev + 3);
                 setIsLoading(false);
-            }, 500); // Small delay to show loading effect
+            }, 300); // Smaller delay for better responsiveness
         };
 
         const handleObserver = (entries) => {
@@ -122,7 +105,7 @@ export default function ClinicList({ selectedBuild, handleSelectedBuild, selecte
 
     // Reset visible items when changing between all clinics and building-specific views
     useEffect(() => {
-        setVisibleItems(5);
+        setVisibleItems(3);
     }, [selectedBuild]);
 
     // Memoize clinic lists to prevent unnecessary re-renders

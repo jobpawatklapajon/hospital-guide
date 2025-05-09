@@ -13,6 +13,9 @@ export default function ClinicItem({clinic, handleClinicSelect}) {
                 src={IconComponent} 
                 alt={clinic.name} 
                 className="w-16 h-16 object-contain" 
+                loading="lazy"
+                width="64"
+                height="64"
             />
         </div>
     )
