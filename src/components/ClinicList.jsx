@@ -18,36 +18,6 @@ const getImageUrl = (url) => {
 
 // LazyImage component for optimized image loading
 export const LazyImage = ({ src, alt, className }) => {
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [error, setError] = useState(false);
-    const imageUrl = useMemo(() => getImageUrl(src), [src]);
-
-    useEffect(() => {
-        const img = new Image();
-        img.src = imageUrl;
-
-        const handleLoad = () => setIsLoaded(true);
-        const handleError = () => setError(true);
-
-        img.onload = handleLoad;
-        img.onerror = handleError;
-
-        return () => {
-            img.onload = null;
-            img.onerror = null;
-        };
-    }, [imageUrl]);
-
-    if (error) {
-        return (
-            <div className={`${className} bg-gray-200 flex items-center justify-center animate-pulse`}>
-                <span className="text-gray-500">
-                    <FaExclamationTriangle size={24} className="text-gray-500 animate-bounce" />
-                </span>
-            </div>
-        );
-    }
-
     return (
         <div className={`${className} relative`}>
             {!isLoaded && (
@@ -56,7 +26,7 @@ export const LazyImage = ({ src, alt, className }) => {
                 </div>
             )}
             <img
-                src={imageUrl}
+                src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}${src}`}
                 alt={alt}
                 className={`${className} ${!isLoaded ? 'opacity-0 scale-95' : 'opacity-100 scale-100'} transition-all duration-300 ease-in-out`}
                 loading="lazy"
