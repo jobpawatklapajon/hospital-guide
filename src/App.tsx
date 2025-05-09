@@ -90,21 +90,18 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden bg-gray-50">
-
-      {/* Fixed map section */}
-      <div className="sticky top-0 z-10 bg-white shadow-md">
-        <div className="w-full border-b border-gray-200" style={{ height: '25vh', minHeight: '150px' }}>
-          <Map 
-            selectedBuilding={selectedBuilding} 
-            onBuildingSelect={handleBuildingSelect} 
-            imageBasePath={IMAGE_BASE_PATH}
-          />
-        </div>
+    <div className="flex flex-col h-screen w-screen bg-gray-50 overflow-hidden">
+      {/* Fixed map section - reduced height on mobile */}
+      <div className="sticky top-0 z-10 bg-white shadow-md w-full flex-shrink-0" style={{ height: '20vh', minHeight: '120px', maxHeight: '150px' }}>
+        <Map 
+          selectedBuilding={selectedBuilding} 
+          onBuildingSelect={handleBuildingSelect} 
+          imageBasePath={IMAGE_BASE_PATH}
+        />
       </div>
       
-      {/* Scrollable content section */}
-      <div className="flex-1 overflow-y-auto">
+      {/* Scrollable content section - using remaining space with better touch handling */}
+      <div className="flex-1 overflow-y-auto overscroll-contain -webkit-overflow-scrolling-touch" style={{ height: 'calc(80vh - 0px)' }}>
         {/* Building selection info */}
         {selectedBuilding && (
           <div className="m-3 bg-white rounded-lg shadow-md overflow-hidden border border-blue-100">
@@ -172,7 +169,7 @@ function App() {
         
         {/* Clinic list section */}
         {!selectedClinic && (
-          <div className="m-3">
+          <div className="m-3 pb-6">
             <div className="bg-white rounded-lg shadow-md mb-3 py-3 px-4">
               <h2 className="text-lg md:text-xl font-semibold text-center text-gray-800">
                 {selectedBuilding 
@@ -185,7 +182,7 @@ function App() {
               {getFilteredClinics().map((clinic, index) => (
                 <div 
                   key={index} 
-                  className="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md hover:border-blue-200 active:bg-blue-50 transition-all duration-200 cursor-pointer overflow-hidden"
+                  className="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md hover:border-blue-200 active:bg-blue-50 transition-all duration-200 cursor-pointer overflow-hidden touch-manipulation"
                   onClick={() => handleClinicSelect(clinic)}
                 >
                   <div className="p-3 flex flex-col items-center">
