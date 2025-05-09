@@ -1,27 +1,47 @@
 import MapView from './components/Mapview.jsx';
 import ClinicList from './components/ClinicList.jsx';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 function App() {
   // State management
   const [selectedBuild, setSelectedBuild] = useState(null);
   const [selectedClinic, setSelectedClinic] = useState(null);
   const [mapExpanded, setMapExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Event handlers
   const handleSelectedBuild = useCallback((build, event) => {
     if (event) {
+      event.preventDefault();
       event.stopPropagation();
     }
     setSelectedBuild(build);
     setMapExpanded(false);
   }, []);
 
-  const handleMapTouch = useCallback(() => {
+  const handleMapTouch = useCallback((event) => {
+    if (event) {
+      event.preventDefault();
+    }
     setMapExpanded(false);
   }, []);
 
-  const handleClinicTouch = useCallback(() => {
+  const handleClinicTouch = useCallback((event) => {
+    if (event) {
+      event.preventDefault();
+    }
     if (!selectedClinic) {
       setMapExpanded(false);
     }
@@ -30,18 +50,19 @@ function App() {
   // Component styles
   const mapContainerClass = `
     transition-all 
-    duration-500 
+    duration-300 
     ease-in-out 
     ${selectedClinic ? 'h-0' : mapExpanded ? 'h-2/5' : 'h-2/5'} 
     shadow-md 
     rounded-b-xl 
     overflow-hidden
+    touch-none
   `;
   
   const clinicListContainerClass = `
     bg-white 
     transition-all 
-    duration-500 
+    duration-300 
     ease-in-out 
     ${selectedClinic ? 'h-full flex-1' : mapExpanded ? 'h-3/5' : 'h-3/5'} 
     overflow-y-auto
@@ -52,7 +73,7 @@ function App() {
   `;
 
   return (
-    <div className='flex flex-col h-screen w-screen bg-gray-50 transition-all duration-300'>
+    <div className='flex flex-col h-screen w-screen bg-gray-50 transition-all duration-300 overflow-hidden'>
       {/* Map Section */}
       <div 
         className={mapContainerClass}
@@ -83,6 +104,7 @@ function App() {
           handleSelectedBuild={handleSelectedBuild} 
           selectedClinic={selectedClinic} 
           setSelectedClinic={setSelectedClinic} 
+          isMobile={isMobile}
         />
       </div>
     </div>

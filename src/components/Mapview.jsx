@@ -14,15 +14,23 @@ const MAP_IMAGES = {
     'default': 'TopView-(all).webp'
 };
 
+// Get base URL that works both in development and production
+const getBaseUrl = () => {
+    const base = import.meta.env.BASE_URL || '/hospital-guide/';
+    return base.endsWith('/') ? base : `${base}/`;
+};
+
 // Main MapView component
 const MapView = ({ setSelectedBuild, build }) => {
-    const [imgUrl, setImgUrl] = useState(`${import.meta.env.BASE_URL.replace(/\/$/, '')}/maps/${MAP_IMAGES.default}`);
+    const [imgUrl, setImgUrl] = useState(`${getBaseUrl()}maps/${MAP_IMAGES.default}`);
     const [selectedStyle, setSelectedStyle] = useState(null);
+    const [imgError, setImgError] = useState(false);
 
     useEffect(() => {
         const mapImage = MAP_IMAGES[build] || MAP_IMAGES.default;
-        const newImageUrl = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/maps/${mapImage}`;
+        const newImageUrl = `${getBaseUrl()}maps/${mapImage}`;
         setImgUrl(newImageUrl);
+        setImgError(false);
 
         // Find the building style for the selected building
         const building = buildings.find(b => b.name === build);
@@ -34,23 +42,40 @@ const MapView = ({ setSelectedBuild, build }) => {
     }, [build]);
 
     const handleClick = useCallback((name, event) => {
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
         setSelectedBuild(name, event);
     }, [setSelectedBuild]);
 
     const handleTouchStart = useCallback((e, name) => {
+        e.preventDefault();
         handleClick(name, e);
     }, [handleClick]);
+
+    const handleImageError = () => {
+        setImgError(true);
+        console.error(`Failed to load image: ${imgUrl}`);
+    };
 
     return (
         <div className="relative overflow-hidden rounded-xl shadow-xl bg-white flex items-center justify-center">
             <div className="relative w-full h-full">
-                <img
-                    src={imgUrl}
-                    alt="แผนที่โรงพยาบาล"
-                    className="rounded-xl z-0 select-none pointer-events-none"
-                    loading="eager"
-                    decoding="async"
-                />
+                {imgError ? (
+                    <div className="w-full h-full flex items-center justify-center bg-gray-200 text-gray-600">
+                        Map image could not be loaded
+                    </div>
+                ) : (
+                    <img
+                        src={imgUrl}
+                        alt="แผนที่โรงพยาบาล"
+                        className="rounded-xl z-0 select-none w-full h-full object-contain"
+                        loading="eager"
+                        decoding="async"
+                        onError={handleImageError}
+                    />
+                )}
                 {buildings.map((building) => (
                     <div
                         key={building.id}
