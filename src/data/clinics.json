@@ -298,41 +298,6 @@
             ]
         },
         {
-            "name": "clinic 7",
-            "icon": "/icons/07.webp",
-            "build": "อาคารอำนวยการ 11 ชั้น",
-            "navigation_guide": [
-                {
-                    "path": "/Navigation/07/Picture1.webp",
-                    "description": "เดินตรงเข้าไปในอาคารอำนวยการ"
-                },
-                {
-                    "path": "/Navigation/07/Picture2.webp",
-                    "description": "เลี้ยวซ้าย"
-                },
-                {
-                    "path": "/Navigation/07/Picture3.webp",
-                    "description": "เลี้ยวขวา"
-                },
-                {
-                    "path": "/Navigation/07/Picture4.webp",
-                    "description": "ตรงไปจนสุดทางเดิน ไปที่ลิฟท์โดยสาร/บันได"
-                },
-                {
-                    "path": "/Navigation/07/Picture5.webp",
-                    "description": "ขึ้นไปที่ชั้น 2"
-                },
-                {
-                    "path": "/Navigation/07/Picture6.webp",
-                    "description": "ตรงเข้าแผนกผู้ป่วยนอก และเลี้ยวขวา"
-                },
-                {
-                    "path": "/Navigation/07/Picture7.webp",
-                    "description": "เดินตรงไป จะพบจุดตรวจ"
-                }
-            ]
-        },
-        {
             "name": "clinic 8",
             "icon": "/icons/08-ตรวจหัวใจ.webp",
             "build": "อาคารศูนย์โรคหัวใจ",
