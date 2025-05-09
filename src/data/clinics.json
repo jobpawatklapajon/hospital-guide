@@ -299,35 +299,35 @@
         },
         {
             "name": "clinic 7",
-            "icon": "/icons/07-เด็ก.webp",
+            "icon": "/icons/07.webp",
             "build": "อาคารอำนวยการ 11 ชั้น",
             "navigation_guide": [
                 {
-                    "path": "/Navigation/07เด็ก/Picture1.webp",
+                    "path": "/Navigation/07/Picture1.webp",
                     "description": "เดินตรงเข้าไปในอาคารอำนวยการ"
                 },
                 {
-                    "path": "/Navigation/07เด็ก/Picture2.webp",
+                    "path": "/Navigation/07/Picture2.webp",
                     "description": "เลี้ยวซ้าย"
                 },
                 {
-                    "path": "/Navigation/07เด็ก/Picture3.webp",
+                    "path": "/Navigation/07/Picture3.webp",
                     "description": "เลี้ยวขวา"
                 },
                 {
-                    "path": "/Navigation/07เด็ก/Picture4.webp",
+                    "path": "/Navigation/07/Picture4.webp",
                     "description": "ตรงไปจนสุดทางเดิน ไปที่ลิฟท์โดยสาร/บันได"
                 },
                 {
-                    "path": "/Navigation/07เด็ก/Picture5.webp",
+                    "path": "/Navigation/07/Picture5.webp",
                     "description": "ขึ้นไปที่ชั้น 2"
                 },
                 {
-                    "path": "/Navigation/07เด็ก/Picture6.webp",
+                    "path": "/Navigation/07/Picture6.webp",
                     "description": "ตรงเข้าแผนกผู้ป่วยนอก และเลี้ยวขวา"
                 },
                 {
-                    "path": "/Navigation/07เด็ก/Picture7.webp",
+                    "path": "/Navigation/07/Picture7.webp",
                     "description": "เดินตรงไป จะพบจุดตรวจ"
                 }
             ]
