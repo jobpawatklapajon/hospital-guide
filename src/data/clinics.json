@@ -2,9 +2,9 @@
     "clinics": [
         {
             "name": "clinic 1",
-            "icon": "/icons/00-ลงทะเบียน.webp",
+            "icon": "00-ลงทะเบียน",
             "build": "อาคารอำนวยการ 11 ชั้น",
-            "navigation_guide": [ 
+            "navigation_guide": [
                 {
                     "path": "/Navigation/00ลงทะเบียน/00_ลงทะเบียน_01.webp",
                     "description": "บริเวณหน้าอาคารอำนวยการ"
@@ -13,7 +13,7 @@
         },
         {
             "name": "clinic 2",
-            "icon": "/icons/01-เจาะเลือด.webp",
+            "icon": "01-เจาะเลือด",
             "build": "อาคารอำนวยการ 11 ชั้น",
             "navigation_guide": [
                 {
@@ -36,7 +36,7 @@
         },
         {
             "name": "clinic 3",
-            "icon": "/icons/02-ตรวจตับ.webp",
+            "icon": "02-ตรวจตับ",
             "build": "อาคารอำนวยการ 11 ชั้น",
             "navigation_guide": [
                 {
@@ -59,7 +59,7 @@
         },
         {
             "name": "clinic 4",
-            "icon": "/icons/03-ตรวจกระดูกและข้อ.webp",
+            "icon": "03-ตรวจกระดูกและข้อ",
             "build": "อาคารอำนวยการ 11 ชั้น",
             "navigation_guide": [
                 {
@@ -86,7 +86,7 @@
         },
         {
             "name": "clinic 4",
-            "icon": "/icons/04-XRay.webp",
+            "icon": "04-XRay",
             "build": "อาคารออร์โธปิดิกส์",
             "navigation_guide": [
                 {
@@ -113,7 +113,7 @@
         },
         {
             "name": "clinic 5",
-            "icon": "/icons/05-ตรวจฟัน.webp",
+            "icon": "05-ตรวจฟัน",
             "build": "อาคารอำนวยการ 11 ชั้น",
             "navigation_guide": [
                 {
@@ -144,7 +144,7 @@
         },
         {
             "name": "clinic 5.1",
-            "icon": "/icons/05.1-ขูดหินปูน.webp",
+            "icon": "05.1-ขูดหินปูน",
             "build": "อาคารอำนวยการ 11 ชั้น",
             "navigation_guide": [
                 {
@@ -175,7 +175,7 @@
         },
         {
             "name": "clinic 5.2",
-            "icon": "/icons/05.2-อุดฟัน.webp",
+            "icon": "05.2-อุดฟัน",
             "build": "อาคารอำนวยการ 11 ชั้น",
             "navigation_guide": [
                 {
@@ -206,7 +206,7 @@
         },
         {
             "name": "clinic 5.3",
-            "icon": "/icons/05.3-ถอนฟัน.webp",
+            "icon": "05.3-ถอนฟัน",
             "build": "อาคารอำนวยการ 11 ชั้น",
             "navigation_guide": [
                 {
@@ -237,7 +237,7 @@
         },
         {
             "name": "clinic 5.4",
-            "icon": "/icons/05.4-xrayฟัน.webp",
+            "icon": "05.4-xrayฟัน",
             "build": "อาคารอำนวยการ 11 ชั้น",
             "navigation_guide": [
                 {
@@ -268,7 +268,7 @@
         },
         {
             "name": "clinic 6",
-            "icon": "/icons/06-ต่อมลูกหมาก.webp",
+            "icon": "06-ต่อมลูกหมาก",
             "build": "อาคารอำนวยการ 11 ชั้น",
             "navigation_guide": [
                 {
@@ -299,7 +299,7 @@
         },
         {
             "name": "clinic 7",
-            "icon": "/icons/07.webp",
+            "icon": "07",
             "build": "อาคารอำนวยการ 11 ชั้น",
             "navigation_guide": [
                 {
@@ -334,254 +334,254 @@
         },
         {
             "name": "clinic 8",
-            "icon": "/icons/08-ตรวจหัวใจ.webp",
+            "icon": "08-ตรวจหัวใจ",
             "build": "อาคารศูนย์โรคหัวใจ",
             "navigation_guide": [
                 {
-                    "path":"/Navigation/080910หัวใจ+echo+abi/Picture1.webp",
+                    "path": "/Navigation/080910หัวใจ+echo+abi/Picture1.webp",
                     "description": "ขึ้นทางลาด และเลี้ยวซ้ายเข้าอาคารศูนย์โรคหัวใจ"
                 },
                 {
-                    "path":"/Navigation/080910หัวใจ+echo+abi/Picture2.webp",
+                    "path": "/Navigation/080910หัวใจ+echo+abi/Picture2.webp",
                     "description": "เลี้ยวซ้าย"
                 },
                 {
-                    "path":"/Navigation/080910หัวใจ+echo+abi/Picture3.webp",
+                    "path": "/Navigation/080910หัวใจ+echo+abi/Picture3.webp",
                     "description": "จุดตรวจอยู่ด้านขวามือ"
                 }
             ]
         },
         {
             "name": "clinic 9",
-            "icon": "/icons/09-Echoหัวใจ.webp",
+            "icon": "09-Echoหัวใจ",
             "build": "อาคารศูนย์โรคหัวใจ",
             "navigation_guide": [
                 {
-                    "path":"/Navigation/080910หัวใจ+echo+abi/Picture1.webp",
+                    "path": "/Navigation/080910หัวใจ+echo+abi/Picture1.webp",
                     "description": "ขึ้นทางลาด และเลี้ยวซ้ายเข้าอาคารศูนย์โรคหัวใจ"
                 },
                 {
-                    "path":"/Navigation/080910หัวใจ+echo+abi/Picture2.webp",
+                    "path": "/Navigation/080910หัวใจ+echo+abi/Picture2.webp",
                     "description": "เลี้ยวซ้าย"
                 },
                 {
-                    "path":"/Navigation/080910หัวใจ+echo+abi/Picture3.webp",
+                    "path": "/Navigation/080910หัวใจ+echo+abi/Picture3.webp",
                     "description": "จุดตรวจอยู่ด้านขวามือ"
                 }
             ]
         },
         {
             "name": "clinic 10",
-            "icon": "/icons/10-ABI.webp",
+            "icon": "10-ABI",
             "build": "อาคารศูนย์โรคหัวใจ",
             "navigation_guide": [
                 {
-                    "path":"/Navigation/080910หัวใจ+echo+abi/Picture1.webp",
+                    "path": "/Navigation/080910หัวใจ+echo+abi/Picture1.webp",
                     "description": "ขึ้นทางลาด และเลี้ยวซ้ายเข้าอาคารศูนย์โรคหัวใจ"
                 },
                 {
-                    "path":"/Navigation/080910หัวใจ+echo+abi/Picture2.webp",
+                    "path": "/Navigation/080910หัวใจ+echo+abi/Picture2.webp",
                     "description": "เลี้ยวซ้าย"
                 },
                 {
-                    "path":"/Navigation/080910หัวใจ+echo+abi/Picture3.webp",
+                    "path": "/Navigation/080910หัวใจ+echo+abi/Picture3.webp",
                     "description": "จุดตรวจอยู่ด้านขวามือ"
                 }
             ]
         },
         {
             "name": "clinic 11",
-            "icon": "/icons/11-หลอดเลือดที่ท้อง.webp",
+            "icon": "11-หลอดเลือดที่ท้อง",
             "build": "อาคารศูนย์โรคหัวใจ",
             "navigation_guide": [
                 {
-                    "path":"/Navigation/11หลอดเลือด/Picture1.webp",
+                    "path": "/Navigation/11หลอดเลือด/Picture1.webp",
                     "description": "ขึ้นทางลาด และเลี้ยวซ้ายเข้าอาคารศูนย์โรคหัวใจ"
                 },
                 {
-                    "path":"/Navigation/11หลอดเลือด/Picture2.webp",
+                    "path": "/Navigation/11หลอดเลือด/Picture2.webp",
                     "description": "เลี้ยวซ้าย"
                 },
                 {
-                    "path":"/Navigation/11หลอดเลือดที่ท้อง/Picture3.webp",
+                    "path": "/Navigation/11หลอดเลือดที่ท้อง/Picture3.webp",
                     "description": "ตรงไปจนสุดทางเดิน จุดตรวจจะอยู่ด้านขวามือ"
                 }
             ]
         },
         {
             "name": "clinic 12",
-            "icon": "/icons/12-ผิวหนัง.webp",
+            "icon": "12-ผิวหนัง",
             "build": "อาคารศูนย์โรคหัวใจ",
             "navigation_guide": [
                 {
-                    "path":"/Navigation/12ผิวหนัง/Picture1.webp",
+                    "path": "/Navigation/12ผิวหนัง/Picture1.webp",
                     "description": "ขึ้นทางลาด และเลี้ยวซ้ายเข้าอาคารศูนย์โรคหัวใจ"
                 },
                 {
-                    "path":"/Navigation/12ผิวหนัง/Picture2.webp",
+                    "path": "/Navigation/12ผิวหนัง/Picture2.webp",
                     "description": "เลี้ยวขวา"
                 },
                 {
-                    "path":"/Navigation/12ผิวหนัง/Picture3.webp",
+                    "path": "/Navigation/12ผิวหนัง/Picture3.webp",
                     "description": "เลี้ยวซ้ายไปที่ลิฟท์โดยสาร"
                 },
                 {
-                    "path":"/Navigation/12ผิวหนัง/Picture4.webp",
+                    "path": "/Navigation/12ผิวหนัง/Picture4.webp",
                     "description": "ขึ้นไปที่ชั้น 3"
                 },
                 {
-                    "path":"/Navigation/12ผิวหนัง/Picture5.webp",
+                    "path": "/Navigation/12ผิวหนัง/Picture5.webp",
                     "description": "ออกจากลิฟท์ แล้วเลี้ยวขวา"
                 },
                 {
-                    "path":"/Navigation/12ผิวหนัง/Picture6.webp",
+                    "path": "/Navigation/12ผิวหนัง/Picture6.webp",
                     "description": "ตรงเข้าแผนกอายุรกรรมทั่วไป"
                 }
             ]
         },
         {
             "name": "clinic 13",
-            "icon": "/icons/13-จิตเวช.webp",
+            "icon": "13-จิตเวช",
             "build": "อาคารศูนย์โรคหัวใจ",
             "navigation_guide": [
                 {
-                    "path":"/Navigation/13จิตเวช/Picture1.webp",
+                    "path": "/Navigation/13จิตเวช/Picture1.webp",
                     "description": "ขึ้นทางลาด และเลี้ยวซ้ายเข้าอาคารศูนย์โรคหัวใจ"
                 },
                 {
-                    "path":"/Navigation/13จิตเวช/Picture2.webp",
+                    "path": "/Navigation/13จิตเวช/Picture2.webp",
                     "description": "เลี้ยวขวา"
                 },
                 {
-                    "path":"/Navigation/13จิตเวช/Picture3.webp",
+                    "path": "/Navigation/13จิตเวช/Picture3.webp",
                     "description": "เลี้ยวซ้ายไปที่ลิฟท์โดยสาร"
                 },
                 {
-                    "path":"/Navigation/13จิตเวช/Picture4.webp",
+                    "path": "/Navigation/13จิตเวช/Picture4.webp",
                     "description": "ขึ้นไปที่ชั้น 3"
                 },
                 {
-                    "path":"/Navigation/13จิตเวช/Picture5.webp",
+                    "path": "/Navigation/13จิตเวช/Picture5.webp",
                     "description": "ออกจากลิฟท์ แล้วเลี้ยวขวา"
                 },
                 {
-                    "path":"/Navigation/13จิตเวช/Picture6.webp",
+                    "path": "/Navigation/13จิตเวช/Picture6.webp",
                     "description": "เลี้ยวขวาหน้าแผนกอายุรกรรมทั่วไป"
                 },
                 {
-                    "path":"/Navigation/13จิตเวช/Picture7.webp",
+                    "path": "/Navigation/13จิตเวช/Picture7.webp",
                     "description": "เลี้ยวขวา"
                 },
                 {
-                    "path":"/Navigation/13จิตเวช/Picture8.webp",
+                    "path": "/Navigation/13จิตเวช/Picture8.webp",
                     "description": "ตรงเข้า คลินิคโรคไต และคลินิคจิตเวช"
                 }
             ]
         },
         {
             "name": "clinic 14",
-            "icon": "/icons/14-ตรวจตา.webp",
+            "icon": "14-ตรวจตา",
             "build": "อาคารศูนย์โรคหัวใจ",
             "navigation_guide": [
                 {
-                    "path":"/Navigation/14ตา/Picture1.webp",
+                    "path": "/Navigation/14ตา/Picture1.webp",
                     "description": "ขึ้นทางลาด และเลี้ยวซ้ายเข้าอาคารศูนย์โรคหัวใจ"
                 },
                 {
-                    "path":"/Navigation/14ตา/Picture2.webp",
+                    "path": "/Navigation/14ตา/Picture2.webp",
                     "description": "เลี้ยวขวา"
                 },
                 {
-                    "path":"/Navigation/14ตา/Picture3.webp",
+                    "path": "/Navigation/14ตา/Picture3.webp",
                     "description": "เลี้ยวซ้ายไปที่ลิฟท์โดยสาร"
                 },
                 {
-                    "path":"/Navigation/14ตา/Picture4.webp",
+                    "path": "/Navigation/14ตา/Picture4.webp",
                     "description": "ขึ้นไปที่ชั้น 4"
                 },
                 {
-                    "path":"/Navigation/14ตา/Picture5.webp",
+                    "path": "/Navigation/14ตา/Picture5.webp",
                     "description": "ออกจากลิฟท์ แล้วเลี้ยวขวา"
                 },
                 {
-                    "path":"/Navigation/14ตา/Picture6.webp",
+                    "path": "/Navigation/14ตา/Picture6.webp",
                     "description": "ตรงเข้าห้องตรวจตา"
                 }
             ]
         },
         {
             "name": "clinic 15",
-            "icon": "/icons/15-หูคอจมูก.webp",
+            "icon": "15-หูคอจมูก",
             "build": "อาคารศูนย์โรคหัวใจ",
             "navigation_guide": [
                 {
-                    "path":"/Navigation/1516ent + ภูมิแพ้/Picture1.webp",
+                    "path": "/Navigation/1516ent + ภูมิแพ้/Picture1.webp",
                     "description": "ขึ้นทางลาด และเลี้ยวซ้ายเข้าอาคารศูนย์โรคหัวใจ"
                 },
                 {
-                    "path":"/Navigation/1516ent + ภูมิแพ้/Picture2.webp",
+                    "path": "/Navigation/1516ent + ภูมิแพ้/Picture2.webp",
                     "description": "เลี้ยวขวา"
                 },
                 {
-                    "path":"/Navigation/1516ent + ภูมิแพ้/Picture3.webp",
+                    "path": "/Navigation/1516ent + ภูมิแพ้/Picture3.webp",
                     "description": "เลี้ยวซ้ายไปที่ลิฟท์โดยสาร"
                 },
                 {
-                    "path":"/Navigation/1516ent + ภูมิแพ้/Picture4.webp",
+                    "path": "/Navigation/1516ent + ภูมิแพ้/Picture4.webp",
                     "description": "ขึ้นไปที่ชั้น 4"
                 },
                 {
-                    "path":"/Navigation/1516ent + ภูมิแพ้/Picture5.webp",
+                    "path": "/Navigation/1516ent + ภูมิแพ้/Picture5.webp",
                     "description": "ออกจากลิฟท์ แล้วเลี้ยวซ้าย"
                 },
                 {
-                    "path":"/Navigation/1516ent + ภูมิแพ้/Picture6.webp",
+                    "path": "/Navigation/1516ent + ภูมิแพ้/Picture6.webp",
                     "description": "เข้าประตูแล้วเลี้ยวซ้าย จากนั้นเลี้ยวขวา"
                 },
                 {
-                    "path":"/Navigation/1516ent + ภูมิแพ้/Picture7.webp",
+                    "path": "/Navigation/1516ent + ภูมิแพ้/Picture7.webp",
                     "description": "เดินตรงไป เข้าห้องตรวจหู คอ จมูก"
                 }
             ]
         },
         {
             "name": "clinic 16",
-            "icon": "/icons/16-ภูมิแพ้.webp",
+            "icon": "16-ภูมิแพ้",
             "build": "อาคารศูนย์โรคหัวใจ",
             "navigation_guide": [
                 {
-                    "path":"/Navigation/1516ent + ภูมิแพ้/Picture1.webp",
+                    "path": "/Navigation/1516ent + ภูมิแพ้/Picture1.webp",
                     "description": "ขึ้นทางลาด และเลี้ยวซ้ายเข้าอาคารศูนย์โรคหัวใจ"
                 },
                 {
-                    "path":"/Navigation/1516ent + ภูมิแพ้/Picture2.webp",
+                    "path": "/Navigation/1516ent + ภูมิแพ้/Picture2.webp",
                     "description": "เลี้ยวขวา"
                 },
                 {
-                    "path":"/Navigation/1516ent + ภูมิแพ้/Picture3.webp",
+                    "path": "/Navigation/1516ent + ภูมิแพ้/Picture3.webp",
                     "description": "เลี้ยวซ้ายไปที่ลิฟท์โดยสาร"
                 },
                 {
-                    "path":"/Navigation/1516ent + ภูมิแพ้/Picture4.webp",
+                    "path": "/Navigation/1516ent + ภูมิแพ้/Picture4.webp",
                     "description": "ขึ้นไปที่ชั้น 4"
                 },
                 {
-                    "path":"/Navigation/1516ent + ภูมิแพ้/Picture5.webp",
+                    "path": "/Navigation/1516ent + ภูมิแพ้/Picture5.webp",
                     "description": "ออกจากลิฟท์ แล้วเลี้ยวซ้าย"
                 },
                 {
-                    "path":"/Navigation/1516ent + ภูมิแพ้/Picture6.webp",
+                    "path": "/Navigation/1516ent + ภูมิแพ้/Picture6.webp",
                     "description": "เข้าประตูแล้วเลี้ยวซ้าย จากนั้นเลี้ยวขวา"
                 },
                 {
-                    "path":"/Navigation/1516ent + ภูมิแพ้/Picture7.webp",
+                    "path": "/Navigation/1516ent + ภูมิแพ้/Picture7.webp",
                     "description": "เดินตรงไป เข้าห้องตรวจหู คอ จมูก"
                 }
             ]
         },
         {
             "name": "clinic 17",
-            "icon": "/icons/17-ตรวจเต้านม.webp",
+            "icon": "17-ตรวจเต้านม",
             "build": "อนุสาวรีย์ท่านเจ้าคุณ",
             "navigation_guide": [
                 {
@@ -592,7 +592,7 @@
         },
         {
             "name": "clinic 18",
-            "icon": "/icons/18-ตรวจมดลูก.webp",
+            "icon": "18-ตรวจมดลูก",
             "build": "อนุสาวรีย์ท่านเจ้าคุณ",
             "navigation_guide": [
                 {
@@ -603,7 +603,7 @@
         },
         {
             "name": "clinic 19",
-            "icon": "/icons/19-แผนไทย.webp",
+            "icon": "19-แผนไทย",
             "build": "อาคารเจ้าพระยายมราช",
             "navigation_guide": [
                 {
@@ -626,7 +626,7 @@
         },
         {
             "name": "clinic 20",
-            "icon": "/icons/20-ฝังเข็ม.webp",
+            "icon": "20-ฝังเข็ม",
             "build": "อาคารเจ้าพระยายมราช",
             "navigation_guide": [
                 {
@@ -649,7 +649,7 @@
         },
         {
             "name": "clinic 21",
-            "icon": "/icons/21-วัคซีนไข้หวัดใหญ่.webp",
+            "icon": "21-วัคซีนไข้หวัดใหญ่",
             "build": "อาคารศูนย์โรคหัวใจ",
             "navigation_guide": [
                 {
@@ -668,7 +668,7 @@
         },
         {
             "name": "clinic 22",
-            "icon": "/icons/22-ฟังผล.webp",
+            "icon": "22-ฟังผล",
             "build": "อาคารศูนย์โรคหัวใจ",
             "navigation_guide": [
                 {
@@ -687,7 +687,7 @@
         },
         {
             "name": "clinic 23",
-            "icon": "/icons/23-จ่ายยา.webp",
+            "icon": "23-จ่ายยา",
             "build": "อาคารศูนย์โรคหัวใจ",
             "navigation_guide": [
                 {
@@ -706,7 +706,7 @@
         },
         {
             "name": "clinic 24",
-            "icon": "/icons/24-กายภาพบำบัด.webp",
+            "icon": "24-กายภาพบำบัด",
             "build": "อาคารสนับสนุนทางการแพทย์",
             "navigation_guide": [
                 {
@@ -737,7 +737,7 @@
         },
         {
             "name": "clinic 25",
-            "icon": "/icons/25-ความรู้และแจกรางวัล.webp",
+            "icon": "25-ความรู้และแจกรางวัล",
             "build": "อาคารสนับสนุนทางการแพทย์",
             "navigation_guide": [
                 {
@@ -772,7 +772,7 @@
         },
         {
             "name": "clinic 26",
-            "icon": "/icons/26-คลินิกสัตว์หมาแมว.webp",
+            "icon": "26-คลินิกสัตว์หมาแมว",
             "build": "สำนักงานเทศบาลเมืองสุพรรณบุรี",
             "navigation_guide": [
                 {
@@ -783,7 +783,7 @@
         },
         {
             "name": "clinic 27",
-            "icon": "/icons/27-จุดรับอาหาร.webp",
+            "icon": "27-จุดรับอาหาร",
             "build": "อาคารสนับสนุนทางการแพทย์",
             "navigation_guide": [
                 {
@@ -794,7 +794,7 @@
         },
         {
             "name": "clinic 28",
-            "icon": "/icons/28-จุดประชาสัมพันธ์.webp",
+            "icon": "28-จุดประชาสัมพันธ์",
             "build": "อนุสาวรีย์ท่านเจ้าคุณ",
             "navigation_guide": [
                 {
@@ -804,4 +804,4 @@
             ]
         }
     ]
-} 
+}

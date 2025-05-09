@@ -3,7 +3,6 @@ import { MdOutlineNavigateNext, MdOutlineNavigateBefore } from "react-icons/md";
 import { HiOutlineMapPin } from "react-icons/hi2";
 import { FaArrowLeft } from "react-icons/fa";
 import { HiOutlineMap } from "react-icons/hi2";
-import { LazyImage } from "./ClinicList";
 
 // Loading indicator component
 const LoadingIndicator = () => (
@@ -11,6 +10,12 @@ const LoadingIndicator = () => (
     <div className="w-8 h-8 border-2 border-[#7ac142] border-t-transparent rounded-full animate-spin"></div>
   </div>
 );
+
+// Get base URL that works both in development and production
+const getBaseUrl = () => {
+  const base = import.meta.env.BASE_URL || '/hospital-guide/';
+  return base.endsWith('/') ? base : `${base}/`;
+};
 
 // Navigation Step component
 const NavigationStep = ({ step, index, onClick }) => (
@@ -28,8 +33,8 @@ const NavigationStep = ({ step, index, onClick }) => (
       </p>
     </div>
     <div className="border border-[#f0f0f0] rounded-lg overflow-hidden shadow-sm">
-      <LazyImage
-        src={step.path}
+      <img
+        src={`${getBaseUrl()}${step.path.substring(1)}`}
         alt={`Navigation step ${index + 1}`}
         className="max-w-full h-auto"
       />
